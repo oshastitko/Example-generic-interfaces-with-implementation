@@ -11,5 +11,5 @@ This is an example to work with generic interface and its implementation
   
 -	The `IDevicesGetFromFilesAndSaveDataDbWorkflow` interface is generic because its implementation is identical for both registered and revoked devices. It includes a single method, `Workflow`, which incapsulates the logic for retrieving data, parsing, processing and saving to the DB. This method is designed to be executed as an atomic operation, ensuring that client code calls only this method to complete the operation.
 
--	The implementation of the ‘Workflow` method retrieves all unprocessed files (regardless of device type, as it operates on abstractions), then selects the oldest file (n the real project, additional actions are performed here, so initially, a list is retrieved instead of just the oldest file), parses it and passes to another service for saving to the DB. 
+-	The implementation of the `Workflow` method retrieves all unprocessed files (regardless of device type, as it operates on abstractions), then selects the oldest file (n the real project, additional actions are performed here, so initially, a list is retrieved instead of just the oldest file), parses it and passes to another service for saving to the DB. 
 
