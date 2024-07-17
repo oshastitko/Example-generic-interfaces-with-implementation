@@ -1,16 +1,12 @@
 # Example-generic-interfaces-with-implementation
 This is an example to work with generic interface and its implementation
 
+**This is an example of my Web API application implementation, featuring exception handling and processing, model validation and RESTful support.**
 
-This is an example to work with generic interface and its implementation, working with abstractions, not with real types of files/entities, ignores specific things for these entities, pass concrete classes into to another service, which worked with concrete entities to save to DB. This example incapsulates the common logic to get files, processing, parsing and then pass it for saving service.
+*There is a part of the real large-scale project. For demonstration purposes in the WebAPI, I've selected three controllers: two for managing similar entities—Revoked Devices and Registered Devices—and one for Vendors, which is common to both device types.*
 
-There is a part of the real project, which processing 2 types of files from external source, which firstly saved to Azure storage (this part is not displayed here) and then parsing, processing and saving to local DB if it’s necessary after all actions (this part is not displayed here)
+- The project ` WebApiExample.Core` has defined interfaces to manage data with a source (in the real project this is typically a database, but not included in this example). It includes DTO classes for manipulating this data, as well as classes for paging, filtering and exceptions that services may throw. For demonstration purposes, only two exceptions are included: one for when an entity is not found, and another for when an entity already exists."
 
--	So, these 2 types of files, which have similar structure, but a little different. So, there is an abstract class named `AbstractDeviceDto` which consists all common fields. Classes `RegisteredDeviceDto` and `RevokedDeviceDto` are descendances of this abstract class.
+- The library` Web.Framework.Api` contains additional code for API functionality, including exception handlers (EntityAlreadyExistsAttribute, EntityNotFoundAttribute etc), a common error model to provide additional error information to client app, static strings and classes for validating data passed from client app (utilizing third-party NuGet package `FluentValidation`).
 
--	We have to observe, which new records are arrived since last updation, which were modified, deleted or possible duplicates (this part is not displayed here). Therefore we have also classes `CompareAbstractDevicesResultDto` and `CompareResultItemModifiedDto`. 
-
-
--	Interface `CompareResultItemModifiedDto` is generic because implementation should be the same for registered and revoked devices. Only one method `Workflow` incapsulates logic to get data, parsing, processing and saving to DB and should be executed as atomic operation. So, client code calls only this method in the result.
-
--	Implementation of this method gets all unprocessed files (for this method no matter, which type of device is passed because it works with abstractions), then selects the oldest (in the real project there are some additional actions here, therefore we get a list firstly, not only the oldest file), then parse this file and pass to another service for saving to DB. 
+- The entry point application `WebApiExample` consists of controllers with API methods, including exception handling with the defined handlers, Swagger integration for API documentation, and other relevant functionalities.
